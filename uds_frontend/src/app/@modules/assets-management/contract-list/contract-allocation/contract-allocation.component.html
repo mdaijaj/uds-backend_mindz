@@ -1,0 +1,251 @@
+<div class="heading_top">
+    <div class="page-title">
+        <h1>Asset Management</h1>
+        <p>Contract Detail <i class="fa fa-angle-right" aria-hidden="true" style="color:#063178">
+            </i><span> Contract Detail dfd </span></p>
+    </div>
+    <div class="add_button">
+        <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+    </div>
+</div>
+
+<div class="right_data_all">
+    <div class="row">
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>Client Name</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.company_name" name="company_name" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>Contract No</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.contact_number" name="contact_number" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>Employee Name</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.full_name" name="full_name" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>location</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.location" name="location" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>Branch</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.branch_name" name="branch_name" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>Start Date</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.po_start_date" name="po_start_date" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>End Date</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.po_end_date" name="po_end_date" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>Purchase Order No</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.po_number" name="po_number" />
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div>
+        <!-- Service Start -->
+        <div class="form_table">
+            <mat-card>
+                <h2>Services</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Service Name</th>
+                                <th>Frequency</th>
+                                <th>Qty</th>
+                                <th>Asset Name</th>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>GST</th>
+                                <th>Total</th>
+                                <th style="width: 150px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of dataObj?.serviceList; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{data?.service_name}}</td>
+                                <td>{{data?.frequency}}</td>
+                                <td>{{data?.qty}}</td>
+                                <td>{{data?.asset_category_name}}</td>
+                                <td>{{data?.item_name}}</td>
+                                <td>{{data?.price}}</td>
+                                <td>{{data?.gst}}</td>
+                                <td>{{data?.total}}</td>
+                                <td>
+                                    <!-- <button class="btn btn-primary">Allocation</button> -->
+                                    <button class="btn btn-light mx-3" (click)="openDialog()">Pending</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card>
+        </div>
+        <!-- Asset start -->
+        <div class="form_table mt-4">
+            <mat-card>
+                <h2>Assets</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Asset Name</th>
+                                <th>Allocation type</th>
+                                <th>QTY</th>
+                                <th>Price</th>
+                                <th>GST</th>
+                                <th>Total</th>
+                                <th style="width: 150px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of dataObj?.assetList; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{data?.asset_category_name}}</td>
+                                <td>{{data?.allocation_type}}</td>
+                                <td>{{data?.qty}}</td>
+                                <td>{{data?.price}}</td>
+                                <td>{{data?.gst}}</td>
+                                <td>{{data?.total}}</td>
+                                <td>
+                                    <!-- <button class="btn btn-primary">Allocation</button> -->
+                                    <button class="btn btn-light mx-3" (click)="openDialog()">Pending</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card>
+        </div>
+
+        <!-- Item start -->
+        <div class="form_table mt-4">
+            <mat-card>
+                <h2>Items</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Item Name</th>
+                                <th>Price per unit</th>
+                                <th>GST</th>
+                                <th>Total</th>
+                                <th style="width: 150px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of dataObj?.itemList; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{data?.item_name}}</td>
+                                <td>{{data?.price_per_unit}}</td>
+                                <td>{{data?.gst}}</td>
+                                <td>{{data?.total}}</td>
+                                <td>
+                                    <!-- <button class="btn btn-primary">Allocation</button> -->
+                                    <button class="btn btn-light mx-3" (click)="openDialog()">Pending</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card>
+        </div>
+        <!-- Out of cost start -->
+        <div class="form_table mt-4">
+            <mat-card>
+                <h2>Out Visit Cost</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Bin Service</th>
+                                <th>Asset Name</th>
+                                <th>Item Name</th>
+                                <th>Out side visit cost </th>
+                                <th>No. of visiters</th>
+                                <th>GST</th>
+                                <th>Total</th>
+                                <th style="width: 150px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of dataObj?.outVisitList; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{data?.bin_service}}</td>
+                                <td>{{data?.asset_category_name}}</td>
+                                <td>{{data?.item_name}}</td>
+                                <td>{{data?.out_visit_cost}}</td>
+                                <td>{{data?.no_of_visitor}}</td>
+                                <td>{{data?.gst}}</td>
+                                <td>{{data?.total}}</td>
+                                <td>
+                                    <!-- <button class="btn btn-primary">Allocation</button> -->
+                                    <button class="btn btn-light mx-3" (click)="openDialog()">Pending</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+            <mat-form-field style="height: 100px" appearance="outline">
+                <mat-label>Remark:</mat-label>
+                <textarea style="height: 200px" matInput placeholder="Remarks"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="common_button_sub text-right w-50 p-0"></div>
+        <div class="common_button_sub text-right w-50 p-0" style="margin-top: -50px;">
+            <button class="mx-3 ">
+                Save
+            </button>
+            <button class="mx-3 ">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>

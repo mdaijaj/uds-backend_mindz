@@ -1,0 +1,494 @@
+<div class="heading_top">
+  <div class="page-title">
+    <h1>CRM</h1>
+    <p>Create Proposal <i class="fa fa-angle-right" aria-hidden="true" style="color:#063178">
+      </i><span> Create Proposal List </span></p>
+  </div>
+  <div class="add_button">
+    <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+  </div>
+</div>
+
+<div class="right_data_all">
+  <div class="conatiner">
+    <section>
+      <form autocomplete="off" (ngSubmit)="requiredForm.form.valid && saveRecord();" #requiredForm="ngForm" novalidate>
+        <mat-card class="mb-4">
+          <div class="basic_details">
+            <h2>Basic Details</h2>
+            <div class="row">
+              <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <b>Created By</b>
+                <p>{{proposalForm?.lead_owner}}</p>
+              </div>
+              <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <b>Lead Owner</b>
+                <p>{{proposalForm?.full_name}}</p>
+              </div>
+              <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <b>Client Name</b>
+                <p>{{proposalForm?.company_name}}</p>
+              </div>
+              <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <b>Contact Person Name</b>
+                <p>{{proposalForm?.contact_person_name}}</p>
+              </div>
+              <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <b>Contact Number</b>
+                <p>{{proposalForm?.contact_number}}</p>
+              </div>
+              <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <b>Mail Id</b>
+                <p>{{proposalForm?.mail_id}}</p>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <div class="row">
+
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Proposal Number</mat-label>
+                <input matInput type="text" [(ngModel)]="proposalForm.proposal_no" name="proposal_no" readonly="true" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>From Date</mat-label>
+                <input [matDatepicker]="dp" (click)="dp.open()" [(ngModel)]="proposalForm.from_date" name="from_date"
+                  #form_date="ngModel" matInput type="text" required />
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp>
+                </mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>To Date</mat-label>
+                <input [matDatepicker]="dp1" (click)="dp1.open()" [(ngModel)]="proposalForm.to_date" name="to_date"
+                  #to_date="ngModel" matInput type="text" required />
+                <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                <mat-datepicker #dp1>
+                </mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service Start -->
+        <div class="form_table">
+          <mat-card>
+            <h2>Services</h2>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>Service Name</th>
+                    <th>Asset Name</th>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                    <th>GST</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of proposalForm?.serviceList; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{data?.service_name}}</td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Select Asset</mat-label>
+                        <mat-select [(ngModel)]="data.asset_category_id" name="asset_category_id{{i}}"
+                          (selectionChange)="getAssetCateVal($event)">
+                          <mat-option *ngFor="let item of getCat_data"
+                            [value]="item?.id">{{item?.asset_category_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Select Item</mat-label>
+                        <mat-select [(ngModel)]="data.item_id" name="item_id{{i}}"
+                          (selectionChange)="handleServiceItem($event)">
+                          <mat-option *ngFor="let item of filteredData"
+                            [value]="item?.id">{{item?.item_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Price</mat-label>
+                        <input matInput type="text" [(ngModel)]="data.price" name="price{{i}}" #price="ngModel"
+                          (keypress)="keyPress($event)" (ngModelChange)="serviceCalculatoin(i, data)" required />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>GST</mat-label>
+                        <input matInput type="text" [(ngModel)]="data.gst" name="gst{{i}}" #gst="ngModel"
+                          (keypress)="keyPress($event)" (ngModelChange)="serviceCalculatoin(i, data)" required />
+                      </mat-form-field>
+                    </td>
+                    <td>{{data?.total}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </mat-card>
+        </div>
+
+        <!-- Asset start -->
+        <div class="form_table mt-4">
+          <mat-card>
+            <h2>Assets
+              <i class="fa fa-plus" (click)="addAssetRow()"></i>
+            </h2>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>Asset Name</th>
+                    <th>Allocation type</th>
+                    <!-- <th>Frequency</th> -->
+                    <th>QTY</th>
+                    <th>Price</th>
+                    <th>GST</th>
+                    <th>Total</th>
+                    <!-- <th>Location</th> -->
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of proposalForm?.assetList; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>
+                      <span *ngIf="!data?.assetAddList?.length">{{data?.asset_category_name}}</span>
+                      <mat-form-field appearance="outline" *ngIf="data?.assetAddList?.length">
+                        <mat-label>Select Asset</mat-label>
+                        <mat-select [(ngModel)]="data.asset_category_id" name="asset_category_id{{i}}"
+                          #asset_category_id="ngModel" (selectionChange)="allocationTypeCalculation()" required>
+                          <mat-option *ngFor="let item of data?.assetAddList"
+                            [value]="item?.asset_category_id">{{item?.asset_category_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Allocation type</mat-label>
+                        <mat-select [(ngModel)]="data.allocation_type" name="assetAllocationType{{i}}"
+                          #assetAllocationType="ngModel" (selectionChange)="allocationTypeCalculation()" required>
+                          <mat-option *ngFor="let item of data?.allocationTypeList" [value]="item">{{item}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <!-- <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Frequency</mat-label>
+                        <mat-select [(ngModel)]="data.frequency" name="assetFrequency{{i}}" #assetFrequency="ngModel"
+                          required>
+                          <mat-option *ngFor="let item of data?.frequencyList" [value]="item">{{item}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td> -->
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>QTY</mat-label>
+                        <input matInput type="text" [(ngModel)]="data.qty" name="assetQty{{i}}" #assetQty="ngModel"
+                          (keypress)="keyPress($event)" (ngModelChange)="assetCalculatoin(i, data)" required />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Price</mat-label>
+                        <input matInput type="text" [(ngModel)]="data.price" name="assetPrice{{i}}"
+                          #assetPrice="ngModel" (keypress)="keyPress($event)"
+                          (ngModelChange)="assetCalculatoin(i, data)" required />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>GST</mat-label>
+                        <input matInput type="text" [(ngModel)]="data.gst" name="assetGst{{i}}" #assetGst="ngModel"
+                          maxlength="2" (keypress)="keyPress($event)" (ngModelChange)="assetCalculatoin(i, data)"
+                          required />
+                      </mat-form-field>
+                    </td>
+                    <td>{{data?.total}}</td>
+                    <!-- <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Location</mat-label>
+                        <mat-select [(ngModel)]="data.location" name="assetLocation{{i}}" #assetLocation="ngModel"
+                          required>
+                          <mat-option *ngFor="let item of data?.locationList" [value]="item">{{item}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td> -->
+                    <td>
+                      <i class="fa fa-trash" (click)="deleteAssetRow(i)" aria-hidden="true"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </mat-card>
+        </div>
+
+        <!-- Item start -->
+        <div class="form_table mt-4">
+          <mat-card>
+            <h2>Items
+              <i class="fa fa-plus" (click)="addItemRow()"></i>
+            </h2>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>Item Name</th>
+                    <th>Price per unit</th>
+                    <th>GST</th>
+                    <th>Total</th>
+                    <!-- <th>Location</th> -->
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of proposalForm?.itemList; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>
+                      <span *ngIf="!data?.itemAddList?.length">{{data?.item_name}}</span>
+                      <mat-form-field appearance="outline" *ngIf="data?.itemAddList?.length">
+                        <mat-label>Select Item</mat-label>
+                        <mat-select [(ngModel)]="data.item_id" name="item_id{{i}}" #item_id="ngModel"
+                          (selectionChange)="allocationTypeCalculation()" required>
+                          <mat-option *ngFor="let item of data?.itemAddList"
+                            [value]="item?.item_id">{{item?.item_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Price per unit</mat-label>
+                        <input matInput type="text" [(ngModel)]="data.price_per_unit" name="itemPrice{{i}}"
+                          #itemPrice="ngModel" (keypress)="keyPress($event)" (ngModelChange)="itemCalculatoin(i, data)"
+                          required />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>GST</mat-label>
+                        <input matInput type="text" [(ngModel)]="data.gst" name="itemGst{{i}}" #itemGst="ngModel"
+                          (keypress)="keyPress($event)" (ngModelChange)="itemCalculatoin(i, data)" required />
+                      </mat-form-field>
+                    </td>
+                    <td>{{data?.total}}</td>
+                    <!-- <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Location</mat-label>
+                        <mat-select [(ngModel)]="data.location" name="itemLocation{{i}}" #itemLocation="ngModel"
+                          required>
+                          <mat-option *ngFor="let item of data?.locationList" [value]="item">{{item}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td> -->
+                    <td>
+                      <i class="fa fa-trash" (click)="deleteItemRow(i)" aria-hidden="true"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </mat-card>
+        </div>
+        <!-- Out of cost start -->
+        <div class="form_table mt-4">
+          <mat-card>
+            <h2>Out Visit Cost</h2>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>Bin Service</th>
+                    <th>Asset Name</th>
+                    <th>Item Name</th>
+                    <th>Out side visit cost </th>
+                    <th>No. of visiters</th>
+                    <th>GST</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of proposalForm?.outVisitList; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{data?.bin_service}}</td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Asset Name</mat-label>
+                        <input matInput type="text" [(ngModel)]="data.asset_category_name"
+                          name="asset_category_name{{i}}" readonly="true" />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Item Name</mat-label>
+                        <input matInput type="text" [(ngModel)]="data.item_name" name="item_name{{i}}"
+                          readonly="true" />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Out side visit cost</mat-label>
+                        <input matInput type="text" [(ngModel)]="data.out_visit_cost" name="out_visit_cost{{i}}"
+                          #out_visit_cost="ngModel" (keypress)="keyPress($event)"
+                          (ngModelChange)="outsideCalculation(i, data)" required />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>No. of visiters</mat-label>
+                        <input matInput type="text" [(ngModel)]="data.no_of_visitor" name="no_of_visitor{{i}}"
+                          #no_of_visitor="ngModel" (keypress)="keyPress($event)"
+                          (ngModelChange)="outsideCalculation(i, data)" required />
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <mat-label>GST</mat-label>
+                        <input matInput type="text" [(ngModel)]="data.gst" name="gst{{i}}" #gst="ngModel"
+                          (keypress)="keyPress($event)" (ngModelChange)="outsideCalculation(i, data)" required />
+                      </mat-form-field>
+                    </td>
+                    <td>{{data?.total}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </mat-card>
+        </div>
+
+        <div class="row mt-5">
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Total One time Purchase</mat-label>
+                <input readonly="true" matInput type="text" [(ngModel)]="proposalForm.tot_purchase"
+                  name="tot_purchase" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>GST</mat-label>
+                <input readonly="true" matInput type="text" [(ngModel)]="proposalForm.tot_gst" name="tot_gst" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Total</mat-label>
+                <input readonly="true" matInput type="text" [(ngModel)]="proposalForm.tot_total" name="tot_total" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Total rental Purchase</mat-label>
+                <input readonly="true" matInput type="text" [(ngModel)]="proposalForm.tr_purchase" name="tr_purchase" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>GST</mat-label>
+                <input readonly="true" matInput type="text" [(ngModel)]="proposalForm.tr_gst" name="tr_gst" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Total</mat-label>
+                <input readonly="true" matInput type="text" [(ngModel)]="proposalForm.tr_total" name="tr_total"
+                  (keypress)="keyPress($event)" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Total Outside service charge</mat-label>
+                <input readonly="true" matInput type="text" [(ngModel)]="proposalForm.tos_charge" name="tos_charge" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>GST</mat-label>
+                <input readonly="true" matInput type="text" [(ngModel)]="proposalForm.tos_gst" name="tos_gst" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Total</mat-label>
+                <input readonly="true" matInput type="text" [(ngModel)]="proposalForm.tos_total" name="tos_total" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <mat-form-field appearance="outline">
+              <mat-label>Select Employee Name</mat-label>
+              <mat-select [(ngModel)]="proposalForm.employee_id" name="employee_id" #employee_id="ngModel" required>
+                <mat-option *ngFor="let data of employeeList" [value]="data?.employee_id">
+                  {{data?.first_name + ' ' + data?.last_name}}
+                </mat-option>
+              </mat-select>
+              <div *ngIf="employee_id.touched || (requiredForm.submitted && employee_id.invalid)">
+                <div *ngIf="employee_id.errors?.['required']" class="invalid-msg">
+                  Employee Name is required
+                </div>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="text_right mt-4" *ngIf="(!status || actionType == 'edit')">
+          <button type="submit" mat-raised-button color="primary">
+            Submit
+          </button>
+          <button type="button" mat-raised-button color="warn" class="mx-3">
+            Back
+          </button>
+        </div>
+        <div class="text_right mt-4" *ngIf="actionType == 'approval'">
+          <button type="button" mat-raised-button color="primary" (click)="changeStatus('AP')">
+            Approve
+          </button>
+          <button type="button" mat-raised-button color="warn" class="mx-3" (click)="changeStatus('RJ')">
+            Reject
+          </button>
+        </div>
+      </form>
+    </section>
+  </div>
+</div>

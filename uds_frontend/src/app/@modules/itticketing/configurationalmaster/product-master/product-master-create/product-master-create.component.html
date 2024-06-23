@@ -1,0 +1,150 @@
+<section class="section">
+  <div class="row head">
+    <p>Admin</p>
+  </div>
+  <div class="row py-1">
+    <div class="employee_top">Service Client Master
+      <span class="employee_2" *ngIf="!id"><i class="fa fa-angle-right" aria-hidden="true" style="color:#063178">
+        </i>
+        Create </span>
+      <span class="employee_2" *ngIf="id"><i class="fa fa-angle-right" aria-hidden="true" style="color:#063178">
+        </i>
+        Update </span>
+    </div>
+  </div>
+  <mat-card>
+    <div class="form_head">
+      <h3>Service Client Master</h3>
+      <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+    </div>
+    <div class="form_basic">
+      <form class="form_set" [formGroup]="productMasterForm">
+        <div class="row">
+
+          <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Service Name</mat-label>
+                <input matInput type="text" formControlName="service_name" />
+                <mat-error *ngIf="productMasterForm.controls['service_name'].hasError('required')">
+                  Service Name is Required.
+                </mat-error>
+                <mat-error *ngIf="productMasterForm.controls['service_name'].hasError('minlength')">
+                  This field accepted minimum 2 length.
+                </mat-error>
+                <mat-error *ngIf="productMasterForm.controls['service_name'].hasError('maxlength')">
+                  This field accepted maximum 150 length.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Service Code</mat-label>
+                <input matInput type="text" formControlName="service_code" />
+                <mat-error *ngIf="productMasterForm.controls['service_code'].hasError('required')">
+                  Service Code is Required.
+                </mat-error>
+                <mat-error *ngIf="productMasterForm.controls['service_code'].hasError('minlength')">
+                  This field accepted minimum 2 length.
+                </mat-error>
+                <mat-error *ngIf="productMasterForm.controls['service_code'].hasError('maxlength')">
+                  This field accepted maximum 150 length.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-8 col-12">
+            <div class="form-group  service_description">
+              <mat-form-field appearance="outline">
+                <mat-label>Service Description</mat-label>
+                <input matInput type="text" formControlName="service_description" />
+                <mat-error *ngIf="productMasterForm.controls['service_description'].hasError('required')">
+                  Service Description is Required.
+                </mat-error>
+                <mat-error *ngIf="productMasterForm.controls['service_description'].hasError('leadingSpaces')">
+                  *No leading spaces!
+                </mat-error>
+                <mat-error *ngIf="productMasterForm.controls['service_description'].hasError('minlength')">
+                  This field accepted minimum 2 length.
+                </mat-error>
+                <mat-error *ngIf="productMasterForm.controls['service_description'].hasError('maxlength')">
+                  This field accepted maximum 150 length.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Item mapping start -->
+          <div class="col-md-12">
+            <hr />
+            <h3><b>Item Mapping</b></h3>
+            <div class="row" *ngIf="type !='view'">
+              <div class="col-xxl-5 col-lg-5 col-md-5 col-sm-5 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Asset Category</mat-label>
+                    <mat-select formControlName="asset_id">
+                      <mat-option *ngFor="let data of getCat_data" (click)="getAssetCateVal(data.id)"
+                        [value]="data.id">{{data.asset_category_name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-xxl-5 col-lg-5 col-md-5 col-sm-5 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Item Name</mat-label>
+                    <mat-select [formControl]="selectedItemList" multiple>
+                      <mat-option *ngFor="let item of filteredData" [value]="item?.id">
+                        {{ item?.item_name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                <button type="button" mat-raised-button color="primary" class="mx-3" (click)="addItem()">Add</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Asset Category</th>
+                      <th style="width: 50%">Item Name</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of itemMappingList; index as i">
+                      <td>{{data?.asset_category_name}}</td>
+                      <td><span class="badge_item" *ngFor="let subData of data?.itemList">{{subData?.item_name}}</span>
+                      </td>
+                      <td><mat-icon (click)="deleteItemMapping(i)">delete</mat-icon></td>
+                    </tr>
+                    <tr *ngIf="!itemMappingList?.length" class="text-center">
+                      <td colspan="3">Record not found</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- Item mapping end -->
+        </div>
+        <div *ngIf="type !='view'">
+          <button *ngIf="!id" [disabled]="extraWords" (click)="onSubmitForm()" mat-raised-button color="primary">
+            Submit
+          </button>
+          <button *ngIf="id" (click)="updateForm($event)" mat-raised-button color="primary">
+            Update
+          </button>
+          <button mat-raised-button color="warn" class="mx-3" (click)="back()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+</section>

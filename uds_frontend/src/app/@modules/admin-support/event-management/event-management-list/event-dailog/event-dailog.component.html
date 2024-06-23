@@ -1,0 +1,63 @@
+<h3 mat-dialog-title class="popHead">Event Management RECORD</h3>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography">
+  <div class="cotain">
+    <div class="emp_key">
+      <p>Event Id:</p>
+      <p>requested_By:</p>
+      <p>Request Initiated Date:</p>
+      <p>Designation of Person:</p>
+      <p>Program Name:</p>
+      <p>Date of Program:</p>
+      <p>Budget Amount:</p>
+      <p>Actual/Final Amount:</p>
+      <p>Program Location:</p>
+      <p>Upload Document:</p>
+      <p>Upload Vendor:</p>
+      <p>Upload Comparative:</p>
+      <p>Final Sign Off:</p>
+      <p>Status:</p>
+    </div>
+
+    <div class="emp_value">
+      <p>{{ singleData?.event_id }}</p>
+      <p>{{ singleData?.requested_By }}</p>
+      <p>{{ singleData?.request_initiated_date }}</p>
+      <p>{{ singleData?.designation_of_person }}</p>
+      <p>{{ singleData?.program_name }}</p>
+      <p>{{ singleData?.date_of_program }}</p>
+      <p>{{ singleData?.budget_amount }}</p>
+      <p>{{ singleData?.final_amount }}</p>
+      <p>{{ singleData?.program_location }}</p>
+      <p>
+        <a href="{{ singleData.upload_documents_copy }}" target="_blank">
+          <span style="color: blue">view file</span>
+        </a>
+      </p>
+      <p>
+        <a href="{{ singleData.upload_vendor_copy }}" target="_blank">
+          <span style="color: blue">view file</span>
+        </a>
+      </p>
+      <p>
+        <a href="{{ singleData.upload_comparative_copy }}" target="_blank">
+          <span style="color: blue">view file</span>
+        </a>
+      </p>
+
+      <p>
+        <a href="{{ singleData.upload_sign_copy }}" target="_blank">
+          <span style="color: blue">view file</span>
+        </a>
+      </p>
+      <p>{{ singleData?.event_status }}</p>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close mat-raised-button color="primary">
+    Close
+  </button>
+  <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

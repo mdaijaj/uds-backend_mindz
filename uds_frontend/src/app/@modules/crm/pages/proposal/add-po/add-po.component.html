@@ -1,0 +1,312 @@
+<div class="heading_top">
+  <div class="page-title">
+    <h1>CRM</h1>
+    <p>PO <i class="fa fa-angle-right" aria-hidden="true" style="color:#063178">
+      </i><span> Add PO </span></p>
+  </div>
+  <div class="add_button">
+    <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+  </div>
+</div>
+
+<div class="right_data_all">
+  <form [formGroup]="addPoForm" (ngSubmit)="saveForm()">
+    <div class="row mt-2">
+      <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+        <div class="d-flex">
+          <mat-form-field appearance="outline">
+            <mat-label>Contract Number</mat-label>
+            <input matInput type="text" formControlName="contact_number" readonly="true" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+        <div class="d-flex">
+          <mat-form-field appearance="outline">
+            <mat-label>Client Name</mat-label>
+            <input matInput type="text" formControlName="company_name" readonly="true" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+        <div class="d-flex">
+          <mat-form-field appearance="outline">
+            <mat-label>Client Name</mat-label>
+            <input matInput type="text" formControlName="company_name" readonly="true" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+        <div class="d-flex">
+          <mat-form-field appearance="outline">
+            <mat-label>Lead Owner</mat-label>
+            <input matInput type="text" formControlName="contact_person_name" readonly="true" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+        <div class="d-flex">
+          <mat-form-field appearance="outline">
+            <mat-label>Branch Name</mat-label>
+            <input matInput type="text" formControlName="branch_name" readonly="true" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+        <div class="d-flex">
+          <mat-form-field appearance="outline">
+            <mat-label>Contract Start Date</mat-label>
+            <input [matDatepicker]="dp" (click)="dp.open()" formControlName="from_date" matInput type="text"
+              readonly="true" />
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp disabled>
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+        <div class="d-flex">
+          <mat-form-field appearance="outline">
+            <mat-label>Contract End Date</mat-label>
+            <input [matDatepicker]="dp1" (click)="dp1.open()" formControlName="to_date" matInput type="text"
+              readonly="true" />
+            <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+            <mat-datepicker #dp1 disabled>
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+        <div class="d-flex">
+          <mat-form-field appearance="outline">
+            <mat-label>Select Location</mat-label>
+            <mat-select formControlName="location_id">
+              <mat-option *ngFor=" let item of locationList" [value]="item?.id">
+                {{item?.location}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+        <div class="d-flex">
+          <mat-form-field appearance="outline">
+            <mat-label>PO Start Date </mat-label>
+            <input matInput [matDatepicker]="dpPo1" (click)="dpPo1.open()" formControlName="po_start_date"
+              [max]="maxDate" (dateChange)="fromDate($event)" readonly />
+            <mat-datepicker-toggle matSuffix [for]="dpPo1"></mat-datepicker-toggle>
+            <mat-datepicker #dpPo1></mat-datepicker>
+            <mat-error *ngIf="addPoForm.controls['po_start_date'].hasError('required')">
+              This field is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+        <div class="d-flex">
+          <mat-form-field appearance="outline">
+            <mat-label>PO End Date</mat-label>
+            <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="po_end_date"
+              (focusout)="todate ? calculateDiff() : calculateDiff()" (dateChange)="calculateDiff()" [max]="maxDate"
+              [min]="FromDate || minDate" (dateChange)="ToDate($event)" readonly>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="addPoForm.controls['po_end_date'].hasError('required')">
+              This field is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+        <div class="d-flex">
+          <mat-form-field appearance="outline">
+            <mat-label>PO Number</mat-label>
+            <input matInput type="text" formControlName="po_number" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+        <div class="d-flex">
+          <mat-form-field appearance="outline">
+            <mat-label>Select Billing Branch</mat-label>
+            <mat-select formControlName="branch_id">
+              <mat-option *ngFor=" let item of branchList" [value]="item?.id">
+                {{item?.branch_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group fileWithViewImg">
+          <input class="form-control" type="file" formControlName="document"
+            style="padding-right: 10% ; margin-bottom: 20px" title="Upload Document" (change)="uploadDoc($event)" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Start -->
+    <div class="form_table" *ngIf="singleData?.serviceList">
+      <mat-card>
+        <h2>Services</h2>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Service Name</th>
+                <th>Frequency/Per month</th>
+                <th>QTY</th>
+                <th>Price</th>
+                <th>GST</th>
+                <th>Total</th>
+                <th style="width: 100px">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of singleData?.serviceList; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{data?.service_name}}</td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Frequency/Per month</mat-label>
+                    <input matInput type="text" [(ngModel)]="data.frequency" #frequency
+                      (keypress)="keyPress($event)" maxlength="2" />  
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>QTY</mat-label>
+                    <input matInput type="text" [(ngModel)]="data.qty" name="qty" #qty (keypress)="keyPress($event)"
+                      maxlength="5" />
+                  </mat-form-field>
+                </td>
+                <td>{{data?.price}}</td>
+                <td>{{data?.gst}}</td>
+                <td>{{data?.total}}</td>
+                <td>
+                  <input type="checkbox" [(ngModel)]="data.isAllot" name="isAllot"
+                    (change)="serviceAllotAllot(data, i)" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Asset start -->
+    <div class="form_table mt-4">
+      <mat-card>
+        <h2>Assets</h2>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Asset Name</th>
+                <th>Allocation type</th>
+                <th>QTY</th>
+                <th>Price</th>
+                <th>GST</th>
+                <th>Total</th>
+                <th style="width: 100px">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of singleData?.assetList; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{data?.asset_category_id}}</td>
+                <td>{{data?.allocation_type}}</td>
+                <td>{{data?.qty}}</td>
+                <td>{{data?.price}}</td>
+                <td>{{data?.gst}}</td>
+                <td>{{data?.total}}</td>
+                <td>
+                  <input type="checkbox" [(ngModel)]="data.isAllot" name="isAllot"
+                    (change)="assetAllotAllot(data, i)" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Item start -->
+    <div class="form_table mt-4">
+      <mat-card>
+        <h2>Items</h2>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Item Name</th>
+                <th>Price per unit</th>
+                <th>GST</th>
+                <th>Total</th>
+                <th style="width: 100px">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of singleData?.itemList; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{data?.item_id}}</td>
+                <td>{{data?.price_per_unit}}</td>
+                <td>{{data?.gst}}</td>
+                <td>{{data?.total}}</td>
+                <td>
+                  <input type="checkbox" [(ngModel)]="data.isAllot" name="isAllot" (change)="itemAllot(data, i)" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Out of cost start -->
+    <div class="form_table mt-4" *ngIf="singleData?.outVisitList">
+      <mat-card>
+        <h2>Out Visit Cost</h2>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Bin Service</th>
+                <th>Out side visit cost </th>
+                <th>No. of visiters</th>
+                <th>GST</th>
+                <th>Total</th>
+                <th style="width: 100px">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of singleData?.outVisitList; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{data?.bin_service}}</td>
+                <td>{{data?.out_visit_cost}}</td>
+                <td>{{data?.no_of_visitor}}</td>
+                <td>{{data?.gst}}</td>
+                <td>{{data?.total}}</td>
+                <td>
+                  <input type="checkbox" [(ngModel)]="data.isAllot" name="isAllot" (change)="outCostAllot(data, i)" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-card>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-4 col-lg-4 col-sm-4 col-6">
+        <button *ngIf="action_type != 'View'" mat-raised-button color="primary" [class.spinner]="loading"
+          [disabled]="loading" type="submit">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div>
+</div>

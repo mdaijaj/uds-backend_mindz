@@ -1,0 +1,33 @@
+<div class="row">
+  
+    <ng-container *ngFor="let module of subModules">
+      <div class="service-box">
+        <div class="service-img" [routerLink]="module.menuLink" (click)="goInToPage(module)">
+          <img [src]="module.menuIcon" alt="" />
+        </div>
+        <div class="card-title">
+          <p>{{module.menuName}}</p>
+        </div>
+      </div>
+
+      <div class="service-box" routerLink="req-list">
+        <div class="service-img" >
+          <img src="assets//icons/icon_DQS/forex-approvar.png" alt="" />
+        </div>
+        <div class="card-title">
+          <p>For Approver Manager</p>
+        </div>
+      </div>
+
+      <div class="service-box" routerLink="req-list-admin">
+        <div class="service-img" >
+          <img src="assets//icons/icon_DQS/forex-admin.png" alt="" />
+        </div>
+        <div class="card-title">
+          <p>For Admin</p>
+        </div>
+      </div>
+    
+    </ng-container> 
+    </div>
+  

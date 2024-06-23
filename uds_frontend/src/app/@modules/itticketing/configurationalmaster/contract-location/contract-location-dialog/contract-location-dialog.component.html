@@ -1,0 +1,38 @@
+<div>
+    <h3 *ngIf="!view" mat-dialog-title class="popHead" style="padding-left: 5px">{{!data?.data?.id?"Add Contract
+        Location":"Update Contract Location"}}</h3>
+    <h3 *ngIf="view" mat-dialog-title class="popHead" style="padding-left: 5px">View Contract Location</h3>
+    <fieldset [disabled]="view == 'view'">
+        <div class="m-3" [formGroup]="departmentForm">
+            <div class="row">
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
+                    <mat-label>Location Name</mat-label>
+                </div>
+                <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-6 col-12">
+                    <div class="form-group row">
+                        <!-- <p>Department Name</p> -->
+                        <mat-form-field appearance="outline" readonly>
+                            <mat-label>Location Name</mat-label>
+                            <input matInput type="text" formControlName="location" />
+                            <mat-error *ngIf="departmentForm.controls['location'].hasError('required')">
+                                *Required!
+                            </mat-error>
+                            <mat-error *ngIf="departmentForm.controls['location'].hasError('leadingSpaces')">
+                                *No leading spaces!
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <mat-dialog-actions align="end" *ngIf="!view">
+            <button *ngIf="!view" mat-raised-button color="primary" (click)="onSubmitForm()" class="mx-2">
+                {{data?.data?.id ? 'Update' : 'Submit'}}
+            </button>
+            <button mat-button mat-dialog-close mat-raised-button color="warn" style="float: right">
+                Close
+            </button>
+        </mat-dialog-actions>
+    </fieldset>
+</div>

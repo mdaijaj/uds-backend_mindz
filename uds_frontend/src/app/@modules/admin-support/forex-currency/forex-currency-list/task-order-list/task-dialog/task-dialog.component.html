@@ -1,0 +1,47 @@
+<div>
+    <h3 mat-dialog-title class="popHead" style="padding-left: 5px">
+      Forex Currency With TO Record
+    </h3>
+  
+    <mat-dialog-content class="mat-typography">
+      <div class="cotain">
+          <div class="emp_key">
+              <p>S.No:</p>
+              <p>Ref.No:</p>
+              <p>Request Date:</p>
+              <p>Name of the Traveler:</p>
+              <p>Passport Number:</p>
+              <p>Client Name:</p>
+              <p>T.O. Number:</p>
+              <p>Country to Visit:</p>
+              <p>Duration From Date:</p>
+              <p>Duration To Date:</p>
+              <p>Currency Name :</p>
+              <p>Purpose:</p>
+              <p>Requested Amount:</p>
+              <p>Remarks:</p>
+          </div>
+          <div class="emp_value">
+              <p>{{singleData?.forex_currency_id}}</p>
+              <p>{{singleData?.req_ref_no}}</p>
+              <p>{{singleData?.request_initiated_date}}</p>
+              <p>{{singleData?.name_of_the_traveler}}</p>
+              <p>{{singleData?.pass_port_number}}</p>
+              <p>{{singleData?.client_name}}</p>
+           
+              <p>{{singleData?.t_o_number}}</p>
+              <p>{{singleData?.country_to_visit}}</p>
+              <p>{{singleData?.duration_from_date}}</p>
+              <p>{{singleData?.duration_to_date}}</p>
+
+              <p>{{singleData?.currency_name[0].currency_name}}</p>
+              <p>{{singleData?.currency_name[0].purpose}}</p>
+              <p>{{singleData?.currency_name[0].amount}}</p>
+              <p>{{singleData?.currency_name[0].remarks}}</p>
+          </div>
+      </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close mat-raised-button color="primary" style="float: right;">Close</button>
+  </mat-dialog-actions>
+  </div>

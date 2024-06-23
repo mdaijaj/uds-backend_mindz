@@ -1,0 +1,160 @@
+<form class="form_set" [formGroup]="install_list_Form">
+  <div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+          <mat-form-field appearance="outline" >
+            <mat-label>Client Name</mat-label>
+            <input readonly matInput type="text" formControlName="client_name" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Installation Date</mat-label>
+          <input readonly matInput type="text" formControlName="installation_date" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+        <mat-form-field appearance="outline" readonly>
+          <mat-label>Head Crew Name</mat-label>
+          <input readonly matInput type="text" formControlName="head_crew" />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Transport Type</mat-label>
+          <mat-select
+          formControlName="transport_type"
+        >
+          <!-- <mat-option [value]="st.amc_description" *ngFor="let st of amc_des">{{
+            st.amc_description
+          }}</mat-option> -->
+          <mat-option>option 1</mat-option>
+          <mat-option>option 2</mat-option>
+          <mat-option>option 3</mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Vehicle Number</mat-label>
+          <mat-select
+          formControlName="vehicle_number"
+        >
+          <!-- <mat-option [value]="st.amc_description" *ngFor="let st of amc_des">{{
+            st.amc_description
+          }}</mat-option> -->
+          <mat-option>option 1</mat-option>
+          <mat-option>option 2</mat-option>
+          <mat-option>option 3</mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Supporting Crew Members</mat-label>
+          <mat-select
+          formControlName="crew_members"
+        >
+          <!-- <mat-option [value]="st.amc_description" *ngFor="let st of amc_des">{{
+            st.amc_description
+          }}</mat-option> -->
+          <mat-option>option 1</mat-option>
+          <mat-option>option 2</mat-option>
+          <mat-option>option 3</mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="employ_sube py-2 mt-4">
+    <div class="example-header">
+      <select (change)="onPageSizeChanged()" id="page-size">
+        <option value="10" selected="">10</option>
+        <option value="100">100</option>
+        <option value="500">500</option>
+        <option value="1000">1000</option>
+      </select>
+    </div>
+  </div>
+  <div class="ag_grid">
+    <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:426px;"
+      [rowData]="rowData" [columnDefs]="columnDefs" [pagination]="true" [paginationPageSize]="9"
+      (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+  </div>
+  <div *ngIf="type === 'pending'" class="row m-3">
+    <div class="common_button_sub text-right w-50 p-0">
+    </div>
+
+    <div class="common_button_sub text-right w-50 p-0"  style="margin-top: 40px;">
+      <button class="mx-3 ">
+        Picked Up
+      </button>
+      <button class="mx-3 ">
+        Back
+      </button>
+    </div>
+  </div>
+  <div *ngIf="type === 'dispatched'" class="row m-3">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select
+          formControlName="status"
+          (selectionChange)="onChange($event)"
+        >
+          <mat-option value="Drop Off">Drop Off</mat-option>
+          <mat-option value="Installed">Installed</mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+      
+    <div *ngIf="install_list_Form.get('status')?.value === 'Installed'"  class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Service Date</mat-label>
+            <input [matDatepicker]="dp" (click)="dp.open()" matInput type="text" formControlName="service_date" />
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div *ngIf="install_list_Form.get('status')?.value === 'Drop Off'"  class="col-xxl-9 col-lg-9 col-md-9 col-sm-9 col-12">
+      <div class="form-group">
+        <mat-form-field style="height: 100px" appearance="outline">
+            <mat-label>Remark:</mat-label>
+            <textarea style="height: 200px" matInput placeholder="Remarks"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    
+    <div class="common_button_sub text-right w-50 p-0">
+    </div>
+
+    <div class="common_button_sub text-right w-50 p-0"  style="margin-top: 40px;">
+      <button class="mx-3 ">
+        Submit
+      </button>
+    </div>
+  </div>
+</form>
+
+
+
+
+

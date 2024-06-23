@@ -1,0 +1,279 @@
+<div class="section">
+  <div>
+    <mat-card>
+      <div class="row form_head">
+        <h3>Create Event Management</h3>
+      </div>
+      <div class="form_basic">
+        <form class="form_set" [formGroup]="create_remote_Form">
+          <div class="row">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Requested By Type</mat-label>
+                  <mat-select formControlName="requested_By">
+                    <mat-option *ngFor="let emp of empdata" [value]="emp.fullName">{{emp.fullName}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                  <mat-label>Initiated Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="rid"
+                    (click)="rid.open()"
+                    formControlName="request_initiated_date"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="rid"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #rid></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                  <mat-label>Designation of Person</mat-label>
+                  <input matInput type="text" formControlName="designation_of_person" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Program Name</mat-label>
+                  <input matInput type="text" formControlName="program_name" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Budget Amount </mat-label>
+                  <input matInput type="number" formControlName="budget_amount" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Actual/Final Amount</mat-label>
+                  <input matInput type="number" formControlName="final_amount" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Program Location</mat-label>
+                  <mat-select formControlName="program_location">
+                    <mat-option
+                      [value]="loc.new_region_name"
+                      *ngFor="let loc of regionData"
+                      >{{ loc.new_region_name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                  <mat-label>Date of Program</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="pd"
+                    (click)="pd.open()"
+                    formControlName="date_of_program"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pd"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pd></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  type="file"
+                  style="padding-right: 19%"
+                  title="Upload the approval Documents email/Pdf"
+                  (change)="onChange($event)"
+                  formControlName="upload_documents_copy"
+                />
+                <img
+                  [src]="imagePath ? imagePath : this.singleData?.upload_documents_copy"
+                  *ngIf="imagePath || this.singleData?.upload_documents_copy"
+                  class="imgEmp"
+                  (click)="
+                    seePreview(this.singleData?.upload_documents_copy, imagePath)
+                  "
+                />
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  type="file"
+                  style="padding-right: 19%"
+                  title="Vendor Copy Upload"
+                  (change)="onVendorChange($event)"
+                  formControlName="upload_vendor_copy"
+                />
+                <img
+                  [src]="vendorimagePath ? vendorimagePath : this.singleData?.upload_vendor_copy"
+                  *ngIf="vendorimagePath || this.singleData?.upload_vendor_copy"
+                  class="imgEmp"
+                  (click)="
+                  seeVendorPreview(this.singleData?.upload_vendor_copy, vendorimagePath)
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  type="file"
+                  style="padding-right: 19%"
+                  title="comparative Copy Upload"
+                  (change)="onTermChange($event)"
+                  formControlName="upload_comparative_copy"
+                />
+                <img
+                  [src]="termimagePath ? termimagePath : this.singleData?.upload_comparative_copy"
+                  *ngIf="termimagePath || this.singleData?.upload_comparative_copy"
+                  class="imgEmp"
+                  (click)="
+                    seeTermPreview(this.singleData?.upload_comparative_copy, termimagePath)
+                  "
+                />
+              </div>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  type="file"
+                  style="padding-right: 19%"
+                  title="Sign Copy Upload"
+                  (change)="onSignChange($event)"
+                  formControlName="upload_sign_copy"
+                />
+                <img
+                  [src]="signimagePath ? signimagePath : this.singleData?.upload_sign_copy"
+                  *ngIf="signimagePath || this.singleData?.upload_sign_copy"
+                  class="imgEmp"
+                  (click)="
+                  seeSignPreview(this.singleData?.upload_sign_copy, signimagePath)
+                  "
+                />
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Status</mat-label>
+                  <mat-select
+                    formControlName="event_status"
+                    (selectionChange)="changeStatus($event)"
+                  >
+                    <mat-option [value]="st.name" *ngFor="let st of status">{{
+                      st.name
+                    }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div *ngIf="t_date" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                  <mat-label>Agreement Signed Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="ad"
+                    (click)="ad.open()"
+                    formControlName="agreement_signed_date"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="ad"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #ad></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div *ngIf="t_date" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                  <mat-label>Event Close Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="cd"
+                    (click)="cd.open()"
+                    formControlName="event_close_date"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="cd"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #cd></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="mt-3" align="end">
+          <button *ngIf="!id"
+            mat-raised-button
+            color="primary"
+            class="mx-3"
+            (click)="createEvent()"
+          >
+            Submit
+          </button>
+          <button *ngIf="id"
+          mat-raised-button
+          color="primary"
+          class="mx-3"
+          (click)="updateEvent()"
+        >
+          Update
+        </button>
+          <button
+            mat-raised-button
+            color="warn"
+            class="mx-3"
+            routerLink="/master/admin-support/remote-office-facility/remote-office-facility-list"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+      <br>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,293 @@
+<mat-card>
+    <div class="section">
+        <div class="main">
+            <div class="employee">
+            </div>
+            <div class="msater-nav">
+                <a>Forex Currency<mat-icon>keyboard_arrow_right</mat-icon></a>
+                <a routerLink="../">Forex Currency Update</a>
+            </div>
+
+            <div class="updatetitle">Forex Currency Update</div>
+
+            <form class="form_set" [formGroup]="forexForm">
+                <section class="job-nav">
+                    <div class="section">
+                        <mat-card>
+                            <div class="row form_head">
+                                <h3>Forex Currency Update</h3>
+                            </div>
+
+                            <div class="form_basic">
+                                <div class="row">
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                            <p>Request Ref.No&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline" >
+                                                <input matInput type="text" formControlName="req_ref_no">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                            <p>Forex Currency&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput type="text" formControlName="froex_currency">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                            <p>Request Initiated Date</p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput [matDatepicker]="dp" (click)="dp.open()"
+                                                    [max]="maxDate" [min]="minDate" formControlName="request_initiated_date" />
+
+                                                <mat-datepicker-toggle class="readonly-wrapper" matSuffix
+                                                    [for]="dp"></mat-datepicker-toggle>
+                                                <mat-datepicker #dp></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                            <p>Client Name&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput type="text" formControlName="client_name">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                            <p>TO Number</p>
+                                            <mat-form-field appearance="outline" readonly>
+                                                <input matInput type="text" formControlName="t_o_number">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                            <p>Name of the Traveler&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput type="text" formControlName="name_of_the_traveler">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                            <p>Residential Address&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput type="text" formControlName="residental_address">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                            <p>Email ID&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput type="text" formControlName="email_id">  
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                            <p>Mobile Number&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput type="number" formControlName="mobile_number">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                            <p>Pass Port Number&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput type="text" formControlName="pass_port_number">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <!-- when create new lead  -->
+                                        <div class="form-group">
+                                            <p>Pass Port Issued Date *</p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput [matDatepicker]="dpp" (click)="dpp.open()"
+                                                    [max]="maxDate"
+                                                    [min]="minDate" formControlName="pass_port_issued_date"/>
+
+                                                <mat-datepicker-toggle class="readonly-wrapper" matSuffix
+                                                    [for]="dpp"></mat-datepicker-toggle>
+                                                <mat-datepicker #dpp></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                            <p>Nationality&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput type="text" formControlName="nationality">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <!-- when create new lead  -->
+                                        <div class="form-group">
+                                            <p>Duration From Date&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput [matDatepicker]="dppp" (click)="dppp.open()"
+                                                    [max]="maxDate"
+                                                    [min]="minDate" formControlName="duration_from_date"/>
+
+                                                <mat-datepicker-toggle class="readonly-wrapper" matSuffix
+                                                    [for]="dppp"></mat-datepicker-toggle>
+                                                <mat-datepicker #dppp></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <!-- when create new lead  -->
+                                        <div class="form-group">
+                                            <p>Duration To Date&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput [matDatepicker]="dpss" (click)="dpss.open()"
+                                                    [max]="maxDate"
+                                                    [min]="minDate" formControlName="duration_to_date" />
+
+                                                <mat-datepicker-toggle class="readonly-wrapper" matSuffix
+                                                    [for]="dpss"></mat-datepicker-toggle>
+                                                <mat-datepicker #dpss></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                            <p>Country to Visit&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput type="text" formControlName="country_to_visit">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <section class="job-navs mt-3">
+                                        <div class="sections">
+                                          <mat-card>
+                                            <div class="row form_head">
+                                              <h3>Currency description</h3>
+                                            </div>
+                                      
+                                            <div>
+                                              <table id="itemTable">
+                                                  <thead>
+                                                    <tr>
+                                                      <th>Currency Name</th>
+                                                      <th>Purpose</th>
+                                                      <th>Amount</th>
+                                                      <th>Remarks</th>
+                                                      <th><mat-icon style="cursor: pointer;" matTooltip="Add More" (click)="add_items()">add_box</mat-icon></th>
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody class="invoice_line">
+                                                    <ng-container formArrayName="currency_name" *ngFor="let control of CF_1.currency_name['controls']; index as i">
+
+                                                    <tr [formGroup]="control" class="form_set">
+                                                      <td><input type="text" formControlName="currency_name" ></td>
+                                                      <td><input type="text" formControlName="purpose"></td>
+                                                      <td><input type="number" formControlName="amount"></td>
+                                                      <td><input type="text" formControlName="remarks"></td>
+                                                      <td> <i class="material-icons deleteBtn" (click)="deleteRow(i,control)">delete</i></td>
+                                                    </tr>
+                                                    </ng-container>
+                                                  </tbody>
+                                                </table>
+                                            </div>
+                                           
+                                          </mat-card>
+                                        </div>
+                                      </section>
+
+                                      <br>
+
+                                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 mt-4">
+                                        <div class="form-group">
+                                            <p>Airline/Flight Details&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput type="text" formControlName="flight_details">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 mt-4">
+                                        <div class="form-group">
+                                            <p>Date of Departure&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput [matDatepicker]="sss" (click)="sss.open()"
+                                                [max]="maxDate"
+                                                [min]="minDate" formControlName="date_of_departure" />
+
+                                            <mat-datepicker-toggle class="readonly-wrapper" matSuffix
+                                                [for]="sss"></mat-datepicker-toggle>
+                                            <mat-datepicker #sss></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 mt-4">
+                                        <div class="form-group">
+                                            <p>Nature of Business Visit&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput type="text" formControlName="nature_of_business_visit">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 mt-4">
+                                        <div class="form-group">
+                                            <p>Status&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <mat-select formControlName="forex_status" (selectionChange)="changeStatus($event)">
+                                                    <mat-option *ngFor="let val of status" [value]="val.value">{{val.value}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="reject" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-4  mt-4">
+                                        <div class="form-group">
+                                            <p>Remark&nbsp;<span class="form_required">*</span></p>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput type="text" formControlName="reject_remarks">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </mat-card>
+                    </div>
+                </section>
+
+                <div class="upload-btn">
+                    <!-- <button class="cancel-btn" (click)="back()">
+              Back
+            </button> -->
+            <button class="favorite styled" (click)="update()">
+                Update
+            </button>
+            <button class="cancel-btn"  routerLink="/master/admin-support/forex-currency/req-list-admin">
+                Cancel
+            </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</mat-card>

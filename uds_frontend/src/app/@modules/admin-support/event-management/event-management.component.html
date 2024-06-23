@@ -1,0 +1,33 @@
+<div class="row">
+  
+    <ng-container *ngFor="let module of subModules">
+      <div class="service-box">
+        <div class="service-img" [routerLink]="module.menuLink" (click)="goInToPage(module)">
+          <img [src]="module.menuIcon" alt="" />
+        </div>
+        <div class="card-title">
+          <p>{{module.menuName}}</p>
+        </div>
+      </div>
+    </ng-container>
+  
+      <!-- <div class="service-box" routerLink='event-management-list'>
+        <div class="service-img">
+          <img src="assets//icons/icon_DQS/event-management.png" alt="" />
+        </div>
+        <div class="card-title">
+          <p>Event Management List</p>
+        </div>
+      </div> -->
+
+        <!-- <div class="service-box" routerLink='for-admin-event-management'>
+        <div class="service-img">
+          <img src="assets//icons/icon_DQS/admin-event.png" alt="" />
+        </div>
+        <div class="card-title">
+          <p>For Admin</p>
+        </div>
+      </div>
+   -->
+    </div>
+  

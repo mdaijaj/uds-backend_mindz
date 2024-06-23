@@ -1,0 +1,64 @@
+<div class="row m-3">
+  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+    <span>GRN Date</span>
+    <mat-form-field appearance="outline">
+      <mat-label>From</mat-label>
+      <input [matDatepicker]="dp" (click)="dp.open()" matInput type="text" />
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+    <br>
+    <mat-form-field appearance="outline">
+      <mat-label>To</mat-label>
+      <input [matDatepicker]="dp1" (click)="dp1.open()" matInput type="text" />
+      <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+      <mat-datepicker #dp1></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+    <span>EXP Date</span>
+    <mat-form-field appearance="outline">
+      <mat-label>From</mat-label>
+      <input [matDatepicker]="dp2" (click)="dp2.open()" matInput type="text" />
+      <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+      <mat-datepicker #dp2></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+    <br>
+    <mat-form-field appearance="outline">
+      <mat-label>To</mat-label>
+      <input [matDatepicker]="dp3" (click)="dp3.open()" matInput type="text" />
+      <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+      <mat-datepicker #dp3></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>
+<div  class="row m-3">
+  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+    <mat-radio-group (change)="onChange($event)">
+      <mat-radio-button value=true checked>FIFO</mat-radio-button>
+      <mat-radio-button value=false>LIFO</mat-radio-button>
+    </mat-radio-group>
+  </div>
+</div>
+<div class="row m-3">
+  <div class="ag_grid">
+    <ag-grid-angular class="ag-theme-alpine" id="myGrid" style=" width:100%; height:200px;" [rowData]="rowData"
+        [columnDefs]="columnDefs" [rowData]="rowData"
+        (gridReady)="onGridReady($event)" [rowClass]="rowClass">
+    </ag-grid-angular>
+  </div>
+  <div class="common_button_sub text-right w-50 p-0">
+  </div>
+  <div class="common_button_sub text-right w-50 p-0">
+      <button mat-dialog-close class="mx-3 " style="margin-left:-150px;">
+        Save
+      </button>
+  </div>
+</div>
+

@@ -1,0 +1,80 @@
+
+  <h3 mat-dialog-title class="popHead" style="background-color: #f5821e !important;">Schedule</h3>
+  <form class="form_set" [formGroup]="allocation_form">
+
+    <div class="row m-3">
+  
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <mat-radio-group formControlName="radio">
+            <mat-radio-button value="own" (click)="toggleMode('own')" >Own Vehicle</mat-radio-button>
+            <mat-radio-button value="other" (click)="toggleMode('other')" >Other</mat-radio-button>
+          </mat-radio-group>
+        </div>
+    
+        <div  class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" align="end">
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Location</mat-label>
+              <input matInput readonly name="Location" formControlName="Location" />
+            </mat-form-field>
+          </div>
+        </div>
+    
+      </div>
+    <div class="row m-3">
+      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-4" *ngIf="this.selectedMode == 'own'">
+        <mat-form-field appearance="outline">
+            <mat-label>Vehicle No</mat-label>
+            <mat-select formControlName="vehicle_number">
+              <mat-option value = "">value</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+        <mat-form-field appearance="outline">
+            <mat-label>H.crew</mat-label>
+            <mat-select formControlName="head_crew">
+              <mat-option value = "">value</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+        <mat-form-field appearance="outline">
+            <mat-label>S.Crew </mat-label>
+            <mat-select formControlName="supporting_crew">
+              <mat-option value = "">value</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+    </div>
+  
+    <div class="row m-3">
+      <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+        <span>Date</span>
+        <mat-form-field appearance="outline">
+          <mat-label>From</mat-label>
+          <input [matDatepicker]="dp" (click)="dp.open()" matInput type="text" readonly formControlName="date"/>
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row m-3">
+        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+          <mat-form-field style="height:123px" appearance="outline">
+            <mat-label>Remarks</mat-label>
+            <textarea matInput type="text" formControlName="remarks"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+          <mat-dialog-actions align="end">
+              <button mat-button mat-dialog-close mat-raised-button color="warn">
+                cancel
+              </button>
+            <button mat-button mat-raised-button color="primary" >
+                Allocate Trip
+            </button>
+          </mat-dialog-actions>
+        </div>
+      </div>
+</form>

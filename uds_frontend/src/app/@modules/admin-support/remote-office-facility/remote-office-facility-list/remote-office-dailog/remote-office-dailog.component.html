@@ -1,0 +1,57 @@
+<h3 mat-dialog-title class="popHead">Remote Office Record</h3>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography">
+  <div class="cotain">
+    <div class="emp_key">
+      <p>Remote Facility Id:</p>
+      <p>Facility Type:</p>
+      <p>Name of The Person:</p>
+      <p>Location:</p>
+      <p>Requirement/Repair:</p>
+      <p>Description:</p>
+      <p>Approval Document:</p>
+      <p>Upload Vendor Quote:</p>
+      <p>Comparative Quote:</p>
+      <p>Upload Final Sign Off:</p>
+      <p>Status:</p>
+    </div>
+
+    <div class="emp_value">
+      <p>{{ singleData?.facility_id }}</p>
+      <p>{{ singleData?.facility_type }}</p>
+      <p>{{ singleData?.person_name }}</p>
+      <p>{{ singleData?.location }}</p>
+      <p>{{ singleData?.type_of_request }}</p>
+      <p>{{ singleData?.description }}</p>
+      <p>
+        <a href="{{ singleData.upload_documents_copy }}" target="_blank">
+          <span style="color: blue">view file</span>
+        </a>
+      </p>
+      <p>
+        <a href="{{ singleData.upload_vendor_copy }}" target="_blank">
+          <span style="color: blue">view file</span>
+        </a>
+      </p>
+      <p>
+        <a href="{{ singleData.upload_comparative_copy }}" target="_blank">
+          <span style="color: blue">view file</span>
+        </a>
+      </p>
+
+      <p>
+        <a href="{{ singleData.upload_sign_copy }}" target="_blank">
+          <span style="color: blue">view file</span>
+        </a>
+      </p>
+      <p>{{ singleData?.remort_status }}</p>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close mat-raised-button color="primary">
+    Close
+  </button>
+  <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

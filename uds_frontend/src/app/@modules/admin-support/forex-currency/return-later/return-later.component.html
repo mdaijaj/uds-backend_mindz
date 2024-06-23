@@ -1,0 +1,66 @@
+<div class="containerPDF">
+    <div class="section container-fluid" id="page">
+      <h3
+        mat-dialog-title
+        class="popHead"
+        style="text-align: center; padding: 10px"
+      >
+        Forex Currency Return Letter
+      </h3>
+      <div class="cotain">
+        <div>
+          <p align="end">Date: {{singleData.request_initiated_date}}</p>
+          <b>To The Manager</b>
+          <p>PHEROZRE PARAMROZE & CO.PVT.LTD</p>
+          <p>BANGLORE</p>
+          <p>Dear Sir:</p>
+          <div style="text-align: center; font-size: 20px">
+            <b>Sub: Surrender of unutilized Foreign currencies</b>
+          </div>
+          <br/>
+          <div>
+            We enclose herewith foreign currency issued in favor of Mr. {{singleData.name_of_the_traveler}}, Whose passport number is {{singleData.pass_port_number}}, who proceeded abroad on business.
+          </div>
+        </div>
+        <p>CURRENCY : {{singleData.currency_name[0].currency_name}}</p>
+        <p>TRAVELLERS CHEQUES : {{singleData.currency_name[0].travellers_cheques}}</p>
+        <p>AXIS CARD : {{singleData.currency_name[0].axis_card}}</p>
+    
+      </div>
+      <br />
+      <div style="font-size: 12px">
+        Please encash the said foreign exchange and issue cheque in favor of “Deutsch Quality Systems (India) Private Limited ”             
+      </div>
+      <br>
+      <div>
+        Thanking you,
+        <br>
+        <br>
+        Yours faithfully,
+        <br>
+        For Deutsch Quality Systems (India) Private
+        Limited
+        <br>
+        <br>
+        <p style="font-weight: bold;"> {{singleData.name_of_the_traveler}}</p>
+        Manager - Admin
+      </div>
+    
+    </div>
+    </div>
+    <mat-dialog-actions
+      style="display: flex; justify-content: center; align-items: center"
+    >
+      <button
+        style="margin-left: 5px"
+        mat-button
+        mat-dialog-close
+        mat-raised-button
+        color="warn"
+        cdkFocusInitial
+        (click)="toPdf()"
+      >
+        Print
+      </button>
+    </mat-dialog-actions>
+    

@@ -1,0 +1,99 @@
+<div class="containerPDF">
+<div class="section container-fluid" id="page">
+  <h3
+    mat-dialog-title
+    class="popHead"
+    style="text-align: center; padding: 10px"
+  >
+  Forex Currency Request Letter
+  </h3>
+  <div class="cotain">
+    <div>
+      <p align="end">Date: {{singleData.request_initiated_date}}</p>
+      <b>To The Manager</b>
+      <p>PHEROZRE PARAMROZE & CO.PVT.LTD</p>
+      <p>BANGLORE</p>
+      <p>Dear Sir:</p>
+      <div style="text-align: center; font-size: 20px">
+        <b>Sub: Release Of Foreign Exchange For Business Visit</b>
+      </div>
+      <br />
+      <div>
+        We request you to release exchange as Detailed Mr.
+        <p style="font-weight: bold;"> {{singleData.name_of_the_traveler}} </p>designation assessor who is porceeding aboard on
+        Company`s business
+      </div>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="row">Currency</th>
+          <th scope="row">Amount in Cash</th>
+          <th scope="row">Amount in Card</th>
+          <th scope="row">Prefferd T/C denomination</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>{{singleData.currency_name[0].currency_name}}</th>
+          <td>{{singleData.currency_name[0].amount}}</td>
+          <td>{{singleData.currency_name[0].axis_card}}</td>
+          <td>{{singleData.currency_name[0].travellers_cheques}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The details are given bellow for your necessary action</p>
+    <ol>
+      <li>Name : {{singleData.name_of_the_traveler}}</li>
+      <li>Residential Address :  {{ singleData.residental_address }}</li>
+      <li>Nationality : {{singleData.nationality}}</li>
+      <li>Passport No. : {{singleData.pass_port_number}}</li>
+      <li>Date of Departure : {{singleData.date_of_departure}}</li>
+      <li>Country/ Coutries to be visit : {{singleData.country_to_visit}}</li>
+      <li>Airline Flight Details : {{singleData.flight_details}}</li>
+      <li>Nature of business Visit in each Country : {{ singleData.nature_of_business_visit }}</li>
+      <li>Email : {{singleData.email_id}}</li>
+      <li>Mobile : {{singleData.mobile_number}}</li>
+    </ol>
+  </div>
+  <br />
+  <div style="font-size: 12px">
+    We certify that the expenses are borne by our organisation. We declare that
+    the foreign exchange drawn will be used for the purpose stated above. We
+    further declare that this transaction will not involve and is not designed
+    for the purpose of any contravention or evasion of the provisions of FEMA or
+    of any rule, regulation, notification, direction or order made thereunder.
+  </div>
+  <br>
+  <div>
+    Thanking you,
+    <br>
+    <br>
+    Yours faithfully,
+    <br>
+    For Deutsch Quality Systems (India) Private
+    Limited, Prasad Khanapur Head - Finance & Accounts
+    <br>
+    <br>
+    <p style="font-weight: bold;"> {{singleData.name_of_the_traveler}}</p>
+    <br>
+    Head - Finance & Accounts
+  </div>
+
+</div>
+</div>
+<mat-dialog-actions
+  style="display: flex; justify-content: center; align-items: center"
+>
+  <button
+    style="margin-left: 5px"
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="warn"
+    cdkFocusInitial
+    (click)="toPdf()"
+  >
+    Print
+  </button>
+</mat-dialog-actions>

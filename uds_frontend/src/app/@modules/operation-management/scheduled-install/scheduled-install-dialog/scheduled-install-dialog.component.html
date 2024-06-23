@@ -1,0 +1,60 @@
+<form class="form_set" [formGroup]="allocation_dialog_Form">
+  <div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+          <mat-form-field appearance="outline" >
+            <mat-label>Quantity</mat-label>
+            <input readonly matInput type="text" formControlName="quantity" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+          <mat-form-field appearance="outline" >
+            <mat-label>Asset Name</mat-label>
+            <input readonly matInput type="text" formControlName="asset_item_name" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+          <mat-form-field appearance="outline" >
+            <mat-label>Serial/Batch No</mat-label>
+            <input readonly matInput type="text" formControlName="serial_batch_no" />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+          <mat-form-field appearance="outline" >
+            <mat-label>Block No</mat-label>
+            <input readonly matInput type="text" formControlName="block_no" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+          <mat-form-field appearance="outline" >
+            <mat-label>Bay No</mat-label>
+            <input readonly matInput type="text" formControlName="bay_no" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+          <mat-form-field appearance="outline" >
+            <mat-label>Rack No</mat-label>
+            <input readonly matInput type="text" formControlName="rack_no" />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close mat-raised-button color="primary">
+    Back
+  </button>
+  <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

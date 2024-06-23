@@ -1,0 +1,32 @@
+.edd-del{
+    display: flex;
+    flex-direction: row;
+    mat-icon{
+        cursor: pointer;
+        position: relative;
+        margin-top: 6px;
+        color: #063178;
+    }:nth-child(2){
+        margin: 0 16px;
+    } 
+}
+.pendingButton{
+    width: 70px;
+    height: 30px;
+    background-color: yellow;
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.allocateButton{
+    width: 70px;
+    height: 30px;
+    background-color: green;
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

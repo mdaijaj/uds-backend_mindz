@@ -1,0 +1,34 @@
+<div class="row">
+  
+    <ng-container *ngFor="let module of subModules">
+      <div class="service-box">
+        <div class="service-img" [routerLink]="module.menuLink" (click)="goInToPage(module)">
+          <img [src]="module.menuIcon" alt="" />
+        </div>
+        <div class="card-title">
+          <p>{{module.menuName}}</p>
+        </div>
+      </div>
+    </ng-container>
+<!--   
+      <div class="service-box" routerLink='remote-office-facility-list'>
+        <div class="service-img">
+          <img src="assets//icons/icon_DQS/remote-office.png" alt="" />
+        </div>
+        <div class="card-title">
+          <p>Remote Office List</p>
+        </div>
+      </div>
+   -->
+     
+      <!-- <div class="service-box" routerLink='request-complaints-list'>
+        <div class="service-img">
+          <img src="assets//icons/icon_DQS/remote-req.png" alt="" />
+        </div>
+        <div class="card-title">
+          <p>Request/Complaints List</p>
+        </div>
+      </div> -->
+  
+    </div>
+  

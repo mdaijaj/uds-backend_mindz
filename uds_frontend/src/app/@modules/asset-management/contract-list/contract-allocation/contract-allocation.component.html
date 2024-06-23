@@ -1,0 +1,103 @@
+<div class="heading_top">
+    <div class="page-title">
+        <h1>Asset Management</h1>
+        <p>Contract Detail <i class="fa fa-angle-right" aria-hidden="true" style="color:#063178">
+            </i><span> Contract Detail </span></p>
+    </div>
+    <div class="add_button">
+        <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+    </div>
+</div>
+
+<div class="right_data_all">
+    <div class="row">
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>Client Name</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.company_name" name="company_name" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>Contract No</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.contact_number" name="contact_number" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>Employee Name</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.full_name" name="full_name" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>location</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.location" name="location" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>Branch</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.branch_name" name="branch_name" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>Start Date</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.start_date" name="start_date" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>End Date</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.end_date" name="end_date" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+            <div class="form-group formField">
+                <mat-form-field appearance="outline">
+                    <mat-label>Purchase Order No</mat-label>
+                    <input matInput readonly type="text" [(ngModel)]="dataObj.po_number" name="po_number" />
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="ag_grid">
+        <ag-grid-angular class="ag-theme-alpine" id="myGrid" style=" width:100%; height:200px;" [rowData]="rowData"
+            [columnDefs]="columnDefs" [rowData]="rowData" (gridReady)="onGridReady($event)" [rowClass]="rowClass">
+        </ag-grid-angular>
+    </div>
+    <div class="row mt-4">
+        <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+            <mat-form-field style="height: 100px" appearance="outline">
+                <mat-label>Remark:</mat-label>
+                <textarea style="height: 200px" matInput placeholder="Remarks"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="common_button_sub text-right w-50 p-0"></div>
+        <div class="common_button_sub text-right w-50 p-0" style="margin-top: -50px;">
+            <button class="mx-3 ">
+                Save
+            </button>
+            <button class="mx-3 ">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>

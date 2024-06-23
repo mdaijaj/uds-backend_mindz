@@ -1,0 +1,17 @@
+<div class="section">
+    <section class="tab-bar" >
+        <div fxflex="100%">
+          <div class="row">
+            <div class="tab_menu">
+              <div class="tab-item">
+                <button class="main-button" color="primary"  [routerLink]="['approved-list']" routerLinkActive="active" >SERVICE CALENDAR</button>
+                <button class="main-button" color="primary"  [routerLink]="['scheduling-installation']" routerLinkActive="active">SCHEDULING INSTALLATION</button>
+                <button class="main-button" color="primary"  [routerLink]="['rejected-list']" routerLinkActive="active">DROP OFF</button>
+                <button class="main-button" color="primary"  [routerLink]="['rejected-list']" routerLinkActive="active">COMPLETE INSTALLATION </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <router-outlet></router-outlet>
